@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Birthday Jyoti 🎂</title>
+<style>
+*{box-sizing:border-box}
+body{
+  margin:0; min-height:100vh; overflow:hidden;
+  font-family:Arial, sans-serif; color:white;
+  background:radial-gradient(circle at top,#6b2fb5,#17052f 70%);
+  display:flex; align-items:center; justify-content:center;
+}
+#stars{position:fixed;inset:0;background-image:radial-gradient(#fff 1px,transparent 1px);
+background-size:45px 45px;opacity:.35;animation:move 20s linear infinite}
+@keyframes move{to{background-position:90px 90px}}
+.card{
+ position:relative;z-index:3;width:min(92%,650px);padding:42px 25px;
+ text-align:center;border:1px solid rgba(255,255,255,.25);
+ border-radius:28px;background:rgba(255,255,255,.10);
+ backdrop-filter:blur(12px);box-shadow:0 20px 70px rgba(0,0,0,.45);
+ animation:pop 1s ease;
+}
+@keyframes pop{from{transform:scale(.7);opacity:0}to{transform:scale(1);opacity:1}}
+h1{font-size:clamp(38px,10vw,76px);margin:10px 0;
+background:linear-gradient(90deg,#fff,#ffd45c,#ff9bd7,#fff);
+-webkit-background-clip:text;color:transparent;animation:shine 2.5s infinite}
+@keyframes shine{50%{filter:drop-shadow(0 0 18px #ffd45c)}}
+h2{font-size:clamp(25px,6vw,42px);margin:5px}
+p{font-size:18px;line-height:1.7}
+.date{font-size:16px;letter-spacing:3px;opacity:.85}
+button{
+ border:0;border-radius:30px;padding:13px 25px;margin-top:12px;
+ background:#fff;color:#6b2fb5;font-weight:bold;font-size:16px;cursor:pointer
+}
+#countdown{font-size:25px;font-weight:bold;margin-top:20px}
+.balloon{position:fixed;bottom:-130px;width:55px;height:70px;border-radius:50%;
+animation:float 9s linear infinite;z-index:1;opacity:.85}
+.balloon:after{content:"";position:absolute;width:1px;height:90px;background:#fff;left:50%;top:68px}
+.b1{left:8%;background:#ff5c8a;animation-delay:0s}.b2{left:25%;background:#55d6ff;animation-delay:2s}
+.b3{left:72%;background:#ffd34d;animation-delay:1s}.b4{left:88%;background:#9cff78;animation-delay:4s}
+@keyframes float{to{transform:translateY(-125vh) rotate(12deg)}}
+.confetti{position:fixed;width:9px;height:15px;top:-20px;z-index:5;animation:fall 4s linear forwards}
+@keyframes fall{to{transform:translateY(110vh) rotate(720deg)}}
+.hidden{display:none}
+</style>
+</head>
+<body>
+<div id="stars"></div>
+<div class="balloon b1"></div><div class="balloon b2"></div>
+<div class="balloon b3"></div><div class="balloon b4"></div>
+
+<div class="card">
+  <div class="date">06 • 10 • 2026</div>
+  <div id="locked">
+    <h2>Jyoti's Birthday Surprise 🎁</h2>
+    <p>This surprise will unlock on <b>6 October 2026</b> ✨</p>
+    <div id="countdown">Loading...</div>
+  </div>
+  <div id="birthday" class="hidden">
+    <div style="font-size:60px">🎂✨🎈</div>
+    <h1>Happy Birthday</h1>
+    <h2>Jyoti ❤️</h2>
+    <p>
+      Wishing you a beautiful birthday filled with happiness, laughter,
+      unforgettable memories and lots of reasons to smile. 🌸
+      May every new day bring you closer to your dreams and may your life
+      always be surrounded by wonderful people and positive moments.
+    </p>
+    <p><b>Keep smiling, keep shining, and enjoy your special day! 💖</b></p>
+    <button onclick="celebrate()">🎉 Celebrate Again</button>
+    <button onclick="music()">🎵 Play Music</button>
+  </div>
+</div>
+
+<script>
+const target = new Date("2026-10-06T00:00:00");
+function checkDate(){
+  const now = new Date();
+  if(now >= target){
+    document.getElementById("locked").classList.add("hidden");
+    document.getElementById("birthday").classList.remove("hidden");
+    celebrate();
+  } else {
+    const d = target-now, days=Math.floor(d/86400000);
+    const hrs=Math.floor(d%86400000/3600000);
+    const mins=Math.floor(d%3600000/60000);
+    const secs=Math.floor(d%60000/1000);
+    document.getElementById("countdown").textContent =
+      `${days}d ${hrs}h ${mins}m ${secs}s`;
+  }
+}
+function celebrate(){
+  for(let i=0;i<90;i++){
+    const c=document.createElement("div"); c.className="confetti";
+    c.style.left=Math.random()*100+"vw";
+    c.style.background=["#ff4f81","#ffd34d","#55d6ff","#9cff78","#ffffff"][Math.floor(Math.random()*5)];
+    c.style.animationDelay=Math.random()*1.5+"s";
+    document.body.appendChild(c);
+    setTimeout(()=>c.remove(),6000);
+  }
+}
+function music(){
+  alert("🎵 Add your favourite birthday song here, or connect an MP3 file to this button.");
+}
+checkDate(); setInterval(checkDate,1000);
+</script>
+</body>
+</html>
